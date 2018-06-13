@@ -1,0 +1,19 @@
+{
+  "name": "boaty-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garyaparker/boaty-backend.git"
+  },
+  "author": "Gary Parker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/garyaparker/boaty-backend/issues"
+  },
+  "homepage": "https://github.com/garyaparker/boaty-backend#readme"
+}
