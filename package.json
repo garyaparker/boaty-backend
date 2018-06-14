@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./index.js",
+    "start:prod": "node ./index.js",
+    "build": "echo \"Building...\" && exit 0",
     "test": "echo \"Tests? Where we're going, we don't need tests.\" && exit 0"
   },
   "repository": {
