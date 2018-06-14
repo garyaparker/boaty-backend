@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node ./index.js",
     "test": "echo \"Tests? Where we're going, we don't need tests.\" && exit 0"
   },
   "repository": {
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/garyaparker/boaty-backend/issues"
   },
-  "homepage": "https://github.com/garyaparker/boaty-backend#readme"
+  "homepage": "https://github.com/garyaparker/boaty-backend#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
 }
