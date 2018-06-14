@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-const dbHost = process.env.NODE_ENV === 'production' ? '172.31.19.147' : 'localhost';
+const dbHost = process.env.DB_HOST ? process.env.DB_HOST : 'localhost';
 
 mongoose.connect(`mongodb://${dbHost}/boaty`)
   .then(() => console.log(`Connected to database ${dbHost}`))
