@@ -7,5 +7,5 @@ deploy:
     secure: clTM9LqgamIeQ30KbxZh460zuU/2MXU7gHAQlRJ4yJkOlLOKE1sK9nHub8BZPnjyM7mIkpq+LDiTIocGDi+s95DISNj19zFFg5pbIrm5DxDhbsBmfafURiX2n3RubIC4fQFMaYiTDOjlhTIkijy9QFhnjKtE0bBYVKhtUFe7Al0UReOmeFtr0OFUxsZ0WbkV8WKl5sSmN2Qmjh6J5IlZI797B/fx5jpUKswJIwFh5u4jl942uBqCNielzANyV7NsMirW5AmglrfKGYy50Wlh3aicAfUav7/VZhPV1l1QM3v+TpVFyMYIlT6bA1fVAt7JXyRI6HXjwQkWtSEBd3Up6tZ6ugZBh6XNfaf3RI0lJsiUzCV5CyFxmlATBCtQjlT56WS5qCvomyV3cMug6bcT8o5bIp/rq2wAmVHn9ue293C/TTRD99LbSaYdMNq6ZcLz4t8KC9mOVIvxU/XR0asH8w2/hs+QfdpDdUfstFyQu1Rktar+IuVYSxBIAcVqTWMIy0/ZNDLM63UcGCO+66WbxkG+EVWR2x2GP+Vlrtg+Jj+TXGqd5Y3QToKtQvj3nV5sbKHv0l/Dsd8mC5teKhiTTCQtvHGljAbLVcTxwVWBIyq+qxAe7p2AyLaobuTaZiNLhC7tjxrYGSKgcltS5EZ6MH/B2ZMTQ5UWlW8ZHhbEv4k=
   region: us-east-1
   app: boaty-backend
-  env: example-app-environment
-  bucket_name: the-target-S3-bucket
+  env: e-r6mg8h9cjk
+  bucket_name: elasticbeanstalk-us-east-1-076182840641
