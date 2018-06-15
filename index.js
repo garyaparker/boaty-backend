@@ -4,54 +4,37 @@ const logger = require('./utils/logger');
 const bunyanRequest = require('bunyan-request');
 const bodyParser = require('body-parser');
 const controller = require('./controller');
-const multer  = require('multer');
+const multer = require('multer');
+const upload = multer().single('file');
 const app = express();
 
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true})); // support json encoded bodies
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true })); // support json encoded bodies
 // Request logging
 app.use(bunyanRequest({ logger }));
 
 // Health check
-// app.get('/', (req, res) => res.send());
+app.get('/', (req, res) => res.send());
 
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true })); // support json encoded bodies
 
-const jsonParser = bodyParser.json();
-
-const router = express.Router();
-router.post('/api/register', jsonParser, (req, res) => {
-
-  logger.info('body:' + req.body.userName);
-  // logger.info('body:' + req.body);
-
-  const user = req.body.userName;
-  const password = req.body.password;
-  const file = req.file;
-  const upload = multer().single('file');
+app.post('/api/register', (req, res) => {
   upload(req, res, (err) => {
     if (err) {
       console.log(err);
       res.status(500).send(err);
     }
-  
-    if (req.file) {
-      // res.send('Upload received');
-      // console.log(req.file);
-      // from body get image
-      // username
-      // password 
-      // const registerUser = controller.registerUser({
-      //   image: req.file,
-      //   userName: user,
-      //   password: password
-      // });
 
-      // if (registerUser) {
-        res.status(201).send();
-      // }
+    if (req.file) {
+      res.send('Upload received');
+      console.log(req.file);
+      console.log('body:', req.body);
     }
   });
 });
+
+const router = express.Router();
 
 router.get('/api/login', (req, res) => {
   console.log('login');
