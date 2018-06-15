@@ -30,7 +30,9 @@ module.exports = {
       let fileName = image.originalname;
       const upload = Buffer.from(image.buffer);
       essThree.putObject(fileName, upload).then(() => {
-        detectFace(`https://s3.amazonaws.com/boaty-faces/${fileName}`);
+        detectFace(`https://s3.amazonaws.com/boaty-faces/${fileName}`).then((response) => {
+          console.log(response.data[0].faceId);
+        });
       }).catch((err) => {
         logger.error(err);
       });
