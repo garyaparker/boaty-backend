@@ -22,8 +22,8 @@ module.exports = {
     User({
       username: userName,
       password: password
-    }).save((err) => {
-      if (err) throw err;
+    }).save().then((user) => {
+      const userId = user._id;
     });
     // with returned user, get ID and send image to S3
 

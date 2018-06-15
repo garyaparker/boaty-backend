@@ -20,13 +20,6 @@ const jsonParser = bodyParser.json();
 
 const router = express.Router();
 router.post('/api/register', jsonParser, (req, res) => {
-
-  logger.info('body:' + req.body.userName);
-  // logger.info('body:' + req.body);
-
-  const user = req.body.userName;
-  const password = req.body.password;
-  const file = req.file;
   const upload = multer().single('file');
   upload(req, res, (err) => {
     if (err) {
@@ -34,17 +27,20 @@ router.post('/api/register', jsonParser, (req, res) => {
       res.status(500).send(err);
     }
   
+    const user = req.body.userName;
+    const password = req.body.password;
+
     if (req.file) {
       // res.send('Upload received');
       // console.log(req.file);
       // from body get image
       // username
       // password 
-      // const registerUser = controller.registerUser({
-      //   image: req.file,
-      //   userName: user,
-      //   password: password
-      // });
+      const registerUser = controller.registerUser({
+        image: req.file,
+        userName: user,
+        password: password
+      });
 
       // if (registerUser) {
         res.status(201).send();
