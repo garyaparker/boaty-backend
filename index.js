@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const logger = require('./utils/logger');
 const bunyanRequest = require('bunyan-request');
 const bodyParser = require('body-parser');
@@ -8,13 +7,13 @@ const multer = require('multer');
 const upload = multer().single('file');
 const app = express();
 
+// Health check
+app.get('/', (req, res) => res.send());
+
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true })); // support json encoded bodies
 // Request logging
 app.use(bunyanRequest({ logger }));
-
-// Health check
-app.get('/', (req, res) => res.send());
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true })); // support json encoded bodies
