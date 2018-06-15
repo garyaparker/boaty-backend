@@ -22,7 +22,6 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true })); // support js
 const jsonParser = bodyParser.json();
 
 app.post('/api/register', jsonParser, (req, res) => {
-  const upload = multer().single('file');
   upload(req, res, (err) => {
     if (err) {
       console.log(err);
