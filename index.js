@@ -2,11 +2,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 const aws = require('aws-sdk');
 const logger = require('./utils/logger');
+const bunyanRequest = require('bunyan-request');
 
 const app = express();
 const s3 = new aws.S3();
 
 const dbHost = process.env.DB_HOST ? process.env.DB_HOST : 'localhost';
+
+// Request logging
+const requestLogger = bunyanRequest({ logger });
+app.use(requestLogger);
 
 // Health check
 app.get('/', (req, res) => res.send());
