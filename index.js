@@ -1,13 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const aws = require('aws-sdk');
 const logger = require('./utils/logger');
 const bunyanRequest = require('bunyan-request');
 const bodyParser = require('body-parser');
 const controller = require('./controller');
 
 const app = express();
-const s3 = new aws.S3();
 
 const dbHost = process.env.DB_HOST ? process.env.DB_HOST : 'localhost';
 
@@ -18,12 +16,6 @@ app.use(bunyanRequest({ logger }));
 
 // Health check
 // app.get('/', (req, res) => res.send());
-
-// S3 connection test
-app.get('/api/s3-test', (req, res) => {
-  const params = { Bucket: 'boaty-faces', MaxKeys: 2 };
-  s3.listObjectsV2(params, (err, data) => err ? res.send(err) : res.send(data));
-});
 
 // MongoDB connection test
 app.get('/api/db-test', (req, res) => {
