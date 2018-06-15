@@ -59,13 +59,19 @@ app.post('/api/login', jsonParser, (req, res) => {
       const loginUser = controller.loginUser({
         image: req.file,
         userName: user
+      }).then((isIdentical) => {
+        if (isIdentical) {
+          res.send('is a match!');
+        } else {
+          res.sendStatus(401);
+        }
       });
 
-      if (req.file) {
-        res.send('Upload received');
-        console.log(req.file);
-        console.log('body:', req.body);
-      }
+      // if (req.file) {
+      //   res.send('Upload received');
+      //   console.log(req.file);
+      //   console.log('body:', req.body);
+      // }
     }
   });
 });

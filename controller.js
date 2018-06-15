@@ -21,18 +21,21 @@ module.exports = {
 
     let fileName = image.originalname;
     const upload = Buffer.from(image.buffer);
-    essThree.putObject(fileName, upload).then(() => {
-      detectFace(`https://s3.amazonaws.com/boaty-faces/${fileName}`).then((response) => {
-        const faceId2 = response.data[0].faceId;
-        console.log('@@@', faceId2);
+    return new Promise((resolve, reject) => {
+      essThree.putObject(fileName, upload).then(() => {
+        detectFace(`https://s3.amazonaws.com/boaty-faces/${fileName}`).then((response) => {
+          const faceId2 = response.data[0].faceId;
+          console.log('@@@', faceId2);
 
-        compareFaces(faceId1, faceId2).then((res) => {
-          console.log(res);
+          compareFaces(faceId1, faceId2).then((res) => {
+            console.log(res);
+            resolve(res.data.isIdentical);
+          });
         });
       });
     });
-
-    return true;
+    
+    // return true;
   },
   registerUser: ({ image, userName, password }) => {
     logger.info('registering user');
