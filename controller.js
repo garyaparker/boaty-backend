@@ -1,7 +1,7 @@
 const User = require('./utils/user');
 const logger = require('./utils/logger');
 const essThree = require('./utils/s3');
-const { detectFace } = require('./utils/face');
+const { detectFace, compareFaces } = require('./utils/face');
 
 // const userSchema = require('./user');
 // const mongoose = require('mongoose');
@@ -12,7 +12,26 @@ module.exports = {
   getUser: (id) => {
     return { id: id };
   },
-  loginUser: () => {
+  loginUser: ({ image, userName }) => {
+    let faceId1;
+    User.findOne({ username: userName }).exec().then((res) => {
+      console.log('$$$', faceId1);
+      faceId1 = res.faceId;
+    });
+
+    let fileName = image.originalname;
+    const upload = Buffer.from(image.buffer);
+    essThree.putObject(fileName, upload).then(() => {
+      detectFace(`https://s3.amazonaws.com/boaty-faces/${fileName}`).then((response) => {
+        const faceId2 = response.data[0].faceId;
+        console.log('@@@', faceId2);
+
+        compareFaces(faceId1, faceId2).then((res) => {
+          console.log(res);
+        });
+      });
+    });
+
     return true;
   },
   registerUser: ({ image, userName, password }) => {

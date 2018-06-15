@@ -46,15 +46,28 @@ app.post('/api/register', jsonParser, (req, res) => {
   });
 });
 
-app.get('/api/login', (req, res) => {
-  const login = controller.loginUser();
-  if (login) {
-    // generate JWT
-    // add JWT to response
-    res.status(200).send();
-  } else {
-    res.status(403).send();
-  }
+app.post('/api/login', jsonParser, (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    }
+
+    const user = req.body.userName;
+
+    if (req.file) {
+      const loginUser = controller.loginUser({
+        image: req.file,
+        userName: user
+      });
+
+      if (req.file) {
+        res.send('Upload received');
+        console.log(req.file);
+        console.log('body:', req.body);
+      }
+    }
+  });
 });
 
 app.get('/api/users/:id', (req, res) => {
