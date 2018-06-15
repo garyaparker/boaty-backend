@@ -21,43 +21,34 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true })); // support js
 
 const jsonParser = bodyParser.json();
 
-const router = express.Router();
-router.post('/api/register', jsonParser, (req, res) => {
+app.post('/api/register', jsonParser, (req, res) => {
   const upload = multer().single('file');
   upload(req, res, (err) => {
     if (err) {
       console.log(err);
       res.status(500).send(err);
     }
-  
+
     const user = req.body.userName;
     const password = req.body.password;
 
     if (req.file) {
-      // res.send('Upload received');
-      // console.log(req.file);
-      // from body get image
-      // username
-      // password 
       const registerUser = controller.registerUser({
         image: req.file,
         userName: user,
         password: password
       });
 
-    if (req.file) {
-      res.send('Upload received');
-      console.log(req.file);
-      console.log('body:', req.body);
-    }
+      if (req.file) {
+        res.send('Upload received');
+        console.log(req.file);
+        console.log('body:', req.body);
+      }
     }
   });
 });
 
-// const router = express.Router();
-
-router.get('/api/login', (req, res) => {
-  console.log('login');
+app.get('/api/login', (req, res) => {
   const login = controller.loginUser();
   if (login) {
     // generate JWT
@@ -68,21 +59,15 @@ router.get('/api/login', (req, res) => {
   }
 });
 
-router.get('/api/users/:id', (req, res) => {
+app.get('/api/users/:id', (req, res) => {
   console.log(req.path.id);
   res.status(200).send(JSON.stringify(controller.getUser(req.params.id)));
 });
 
-router.get('/', (req, res) => {
-  res.send('here');
+// Error handler
+app.use((error, req, res, next) => { // eslint-disable-line no-unused-vars
+  logger.error(error);
+  res.status(500).send(error.stack);
 });
-
-// // Error handler
-// app.use((error, req, res, next) => { // eslint-disable-line no-unused-vars
-//   logger.error(error);
-//   res.status(500).send(error.stack);
-// });
-
-app.use('/', router);
 
 app.listen(process.env.PORT || 3000);
