@@ -2,8 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const logger = require('./utils/logger');
 const bunyanRequest = require('bunyan-request');
-
+const user = require('./utils/user');
 const app = express();
+
+const jill = { username: 'jill', password: '234234234', faceId: '23874928374234' };
+
+user(jill).save();
 
 const dbHost = process.env.DB_HOST ? process.env.DB_HOST : 'localhost';
 
