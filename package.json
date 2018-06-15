@@ -22,7 +22,6 @@
   "dependencies": {
     "aws-sdk": "^2.258.1",
     "axios": "^0.18.0",
-    "bcrypt": "2.0.1",
     "body-parser": "1.18.3",
     "bunyan": "^1.8.12",
     "bunyan-request": "^1.2.0",
