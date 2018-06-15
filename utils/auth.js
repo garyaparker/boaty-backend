@@ -10,4 +10,10 @@ const decrytpJwt = (token) => {
   return jwt.verify(token, secret);
 };
 
-module.exports = { signJwt, decrytpJwt };
+const authorizeRoute = (req, res, next) => {
+  const token = req.headers.authorization;
+  req.user = decrytpJwt(token);
+  next();
+};
+
+module.exports = { signJwt, decrytpJwt, authorizeRoute };
