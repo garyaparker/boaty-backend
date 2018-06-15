@@ -12,9 +12,11 @@ const putObject = (filename, file) => {
     StorageClass: 'STANDARD_IA'
   };
 
-  s3.putObject(params, (error, data) => {
-    if (error) throw error;
-    return data;
+  return new Promise((resolve, reject) => {
+    s3.putObject(params, (error, data) => {
+      if (error) reject(error);
+      resolve(data);
+    });
   });
 };
 
