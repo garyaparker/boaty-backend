@@ -25,7 +25,7 @@ module.exports = {
       username: userName,
       password: password,
       faceId: ''
-    }).save().then((user) => {
+    }).save().then(() => {
       // const userId = user._id;
       let fileName = image.originalname;
       const upload = Buffer.from(image.buffer);
