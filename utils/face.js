@@ -18,7 +18,7 @@ const detectFace = (imageURL) => {
 
   axios.post(azureDetectEndpoint, headers, postData)
     .then((response) => {
-      console.log(response);
+      console.log(response.json);
     })
     .catch((error) => {
       throw Error(error);

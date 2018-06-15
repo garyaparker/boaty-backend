@@ -50,10 +50,11 @@ router.post('/api/register', jsonParser, (req, res) => {
       console.log(req.file);
       console.log('body:', req.body);
     }
+    }
   });
 });
 
-const router = express.Router();
+// const router = express.Router();
 
 router.get('/api/login', (req, res) => {
   console.log('login');

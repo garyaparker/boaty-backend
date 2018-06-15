@@ -1,5 +1,8 @@
 const User = require('./utils/user');
 const logger = require('./utils/logger');
+const essThree = require('./utils/s3');
+const { detectFace } = require('./utils/face');
+
 // const userSchema = require('./user');
 // const mongoose = require('mongoose');
 // // const User = userSchema.model;
@@ -24,6 +27,13 @@ module.exports = {
       password: password
     }).save().then((user) => {
       const userId = user._id;
+      let fileName = image.originalname;
+      const upload = Buffer.from(image.buffer);
+      essThree.putObject(fileName, upload).then(() => {
+        detectFace(`https://s3.amazonaws.com/boaty-faces/${fileName}`);
+      }).catch((err) => {
+        logger.error(err);
+      });
     });
     // with returned user, get ID and send image to S3
 
