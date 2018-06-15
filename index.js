@@ -10,8 +10,7 @@ const s3 = new aws.S3();
 const dbHost = process.env.DB_HOST ? process.env.DB_HOST : 'localhost';
 
 // Request logging
-const requestLogger = bunyanRequest({ logger });
-app.use(requestLogger);
+app.use(bunyanRequest({ logger }));
 
 // Health check
 app.get('/', (req, res) => res.send());
