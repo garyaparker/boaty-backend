@@ -15,6 +15,8 @@ module.exports = {
   registerUser: ({ image, userName, password }) => {
 
     logger.info('registering user');
+    logger.info('userName:' + userName);
+    logger.info('password:' + password);
 
     // create user in Mongo
     User({

@@ -4,9 +4,11 @@ const logger = require('./utils/logger');
 const bunyanRequest = require('bunyan-request');
 const bodyParser = require('body-parser');
 const controller = require('./controller');
-
+const multer  = require('multer');
 const app = express();
 
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true})); // support json encoded bodies
 // Request logging
 app.use(bunyanRequest({ logger }));
 
@@ -18,21 +20,40 @@ const jsonParser = bodyParser.json();
 
 const router = express.Router();
 router.post('/api/register', jsonParser, (req, res) => {
-  console.log(req.body);
 
-  // from body get image
-  // username
-  // password 
-  if (controller.registerUser({
-    image: {},
-    userName: 'userstringname',
-    password: 'password'
-  })) {
-    res.status(201).send();
-  }
+  logger.info('body:' + req.body.userName);
+  // logger.info('body:' + req.body);
+
+  const user = req.body.userName;
+  const password = req.body.password;
+  const file = req.file;
+  const upload = multer().single('file');
+  upload(req, res, (err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    }
+  
+    if (req.file) {
+      // res.send('Upload received');
+      // console.log(req.file);
+      // from body get image
+      // username
+      // password 
+      // const registerUser = controller.registerUser({
+      //   image: req.file,
+      //   userName: user,
+      //   password: password
+      // });
+
+      // if (registerUser) {
+        res.status(201).send();
+      // }
+    }
+  });
 });
 
-router.get('api/login', (req, res) => {
+router.get('/api/login', (req, res) => {
   console.log('login');
   const login = controller.loginUser();
   if (login) {
@@ -44,7 +65,7 @@ router.get('api/login', (req, res) => {
   }
 });
 
-router.get('api/users/:id', (req, res) => {
+router.get('/api/users/:id', (req, res) => {
   console.log(req.path.id);
   res.status(200).send(JSON.stringify(controller.getUser(req.params.id)));
 });
