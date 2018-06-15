@@ -29,8 +29,13 @@ const jsonParser = bodyParser.json();
 const router = express.Router();
 router.post('/register', jsonParser, (req, res) => {
   console.log(req.body);
-  // console.log(req.body);
-  res.status(201).send(JSON.stringify(controller.registerUser()));
+  
+  // from body get image
+  // username
+  // password 
+  if (controller.registerUser()) {
+    res.status(201).send();
+  }
 });
 
 router.get('/login', (req, res) => {
@@ -43,7 +48,6 @@ router.get('/login', (req, res) => {
   } else {
     res.status(403).send();
   }
-  
 });
 
 router.get('/users/:id', (req, res) => {
